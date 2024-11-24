@@ -254,8 +254,8 @@ def _lightseq_forward_varlen(q, k, v, causal, sm_scale, comm_mode):
     Lq, Lk, Lv = q.shape[-1], k.shape[-1], v.shape[-1]
     # assert Lq == Lk and Lk == Lv
     # assert Lk in {16, 32, 64, 128}
-    BLOCK_M = 128
-    BLOCK_N = 64
+    BLOCK_M = 64
+    BLOCK_N = 32
 
     bsz, nh, unpadded_seq_len, hdim = q.shape
     cu_seq_lens = torch.arange(0, (bsz+1) * unpadded_seq_len, unpadded_seq_len, dtype=torch.int32, device=q.device)
@@ -292,7 +292,7 @@ def _lightseq_forward_varlen(q, k, v, causal, sm_scale, comm_mode):
                 IS_CAUSAL=IS_CAUSAL,
                 LAST_STEP=LAST_STEP,
                 num_warps=num_warps,
-                num_stages=4)
+                num_stages=1)
     
     for time_step in range(seq_world_size // 2 + 1):
         # This is important for cuda scheduler to execute nccl calls first.
@@ -347,7 +347,7 @@ def _lightseq_forward_varlen(q, k, v, causal, sm_scale, comm_mode):
                 BLOCK_M=BLOCK_M, BLOCK_N=BLOCK_N, BLOCK_DMODEL=Lk,
                 LAST_STEP=is_last_time(time_step),
                 num_warps=num_warps,
-                num_stages=4)
+                num_stages=1)
     return q, k, v, o, L, cu_seq_lens, max_seqlen
 
 def _lightseq_backward_varlen(do, q, k, v, o, L, sm_scale, comm_mode, backward_engine, cu_seq_lens, max_seqlen):

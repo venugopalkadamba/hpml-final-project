@@ -128,12 +128,12 @@ def train():
     #optimizer = torch.optim.SGD(optimizer_grouped_parameters, lr=0.01)
     optimizer = torch.optim.Adam(optimizer_grouped_parameters, lr=0.01)
 
-    for length in [4096, 8192, 16384, 32768]:
+    for length in [512]: # [4096, 8192, 16384, 32768]:
         time_list = []
         data = {"input_ids": torch.randint(0, 1000, (1, length,), device="cuda"),
                 "labels": torch.randint(0, 1000, (1, length,), device="cuda"), 
                 "attention_mask": torch.ones(1, length, device="cuda")}
-        for i in tqdm(range(100)):
+        for i in tqdm(range(10)):
             if i > 0:
                 time_s = time.time()
             outputs = model(**data, use_cache=True)

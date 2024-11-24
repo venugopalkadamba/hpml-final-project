@@ -248,9 +248,10 @@ def _lightseq_forward(q, k, v, causal, sm_scale, comm_mode):
     # shape constraints
     Lq, Lk, Lv = q.shape[-1], k.shape[-1], v.shape[-1]
     assert Lq == Lk and Lk == Lv
-    assert Lk in {16, 32, 64, 128}
-    BLOCK_M = 128
-    BLOCK_N = 64
+    # print(Lk, Lq, Lv)
+    assert Lk in {4, 16, 32, 64, 128}
+    BLOCK_M = 64
+    BLOCK_N = 32
    
     bsz, nh, seq_len, hdim = q.shape
 
@@ -283,7 +284,7 @@ def _lightseq_forward(q, k, v, causal, sm_scale, comm_mode):
                 IS_CAUSAL=IS_CAUSAL,
                 LAST_STEP=LAST_STEP,
                 num_warps=num_warps,
-                num_stages=4)
+                num_stages=1)
     
     for time_step in range(seq_world_size // 2 + 1):
         # This is important for cuda scheduler to execute nccl calls first.
@@ -335,7 +336,7 @@ def _lightseq_forward(q, k, v, causal, sm_scale, comm_mode):
                 BLOCK_M=BLOCK_M, BLOCK_N=BLOCK_N, BLOCK_DMODEL=Lk,
                 LAST_STEP=is_last_time(time_step),
                 num_warps=num_warps,
-                num_stages=4)
+                num_stages=1)
     return q, k, v, o, L
 
 def _lightseq_backward(do, q, k, v, o, L, sm_scale, comm_mode, backward_engine):
@@ -373,7 +374,7 @@ def _lightseq_backward(do, q, k, v, o, L, sm_scale, comm_mode, backward_engine):
         if is_compute_for_local_query(time_step):
             if time_step == 0:
                 if backward_engine == "flash":
-                    _flash_attn_backward(do, q, k, v, o, L, dq, dk, dv, 0.0, sm_scale, True, None)
+                    _flash_attn_backward(do, q, k, v, o, L, dq, dk, dv, 0.0, sm_scale, True, window_size=(-1, -1), alibi_slopes=None, deterministic=False)
                 else:
                     inp = Inputs(query=q, key=maybe_repeat_kv_bwd(q.shape[2], k), value=maybe_repeat_kv_bwd(q.shape[2], v), attn_bias=xformers.ops.LowerTriangularMask(), p=0, scale=sm_scale)
                     op_ctx = Context(lse=L, out=o, rng_state=None)
@@ -383,7 +384,7 @@ def _lightseq_backward(do, q, k, v, o, L, sm_scale, comm_mode, backward_engine):
                     dk, dv = maybe_reduce_dkv(nkvh, grads.dk), maybe_reduce_dkv(nkvh, grads.dv)
             else:
                 if backward_engine == "flash":
-                    _flash_attn_backward(do, q, peer_k[buffer_idx_2], peer_v[buffer_idx_2], o, L, dq_delta[buffer_idx_2], dk_delta[buffer_idx_2], dv_delta[buffer_idx_2], 0.0, sm_scale, False, None)
+                    _flash_attn_backward(do, q, peer_k[buffer_idx_2], peer_v[buffer_idx_2], o, L, dq_delta[buffer_idx_2], dk_delta[buffer_idx_2], dv_delta[buffer_idx_2], 0.0, sm_scale, False, window_size=(-1, -1), alibi_slopes=None, deterministic=False)
                 else:
                     inp = Inputs(query=q, key=maybe_repeat_kv_bwd(q.shape[2], peer_k[buffer_idx_2]), value=maybe_repeat_kv_bwd(q.shape[2], peer_v[buffer_idx_2]), attn_bias=None, p=0, scale=sm_scale)
                     op_ctx = Context(lse=L, out=o, rng_state=None)
@@ -395,7 +396,7 @@ def _lightseq_backward(do, q, k, v, o, L, sm_scale, comm_mode, backward_engine):
             pass
         else:
             if backward_engine == "flash":
-                _flash_attn_backward(peer_do[buffer_idx_2], peer_q[buffer_idx_2], k, v, peer_o[buffer_idx_2], peer_L[buffer_idx_2], dq_delta[buffer_idx_2], dk_delta[buffer_idx_2], dv_delta[buffer_idx_2], 0.0, sm_scale, False, None)
+                _flash_attn_backward(peer_do[buffer_idx_2], peer_q[buffer_idx_2], k, v, peer_o[buffer_idx_2], peer_L[buffer_idx_2], dq_delta[buffer_idx_2], dk_delta[buffer_idx_2], dv_delta[buffer_idx_2], 0.0, sm_scale, False, window_size=(-1, -1), alibi_slopes=None, deterministic=False)
             else:
                 inp = Inputs(query=peer_q[buffer_idx_2], key=maybe_repeat_kv_bwd(q.shape[2], k), value=maybe_repeat_kv_bwd(q.shape[2], v), attn_bias=None, p=0, scale=sm_scale)
                 op_ctx = Context(lse=peer_L[buffer_idx_2], out=peer_o[buffer_idx_2], rng_state=None)
