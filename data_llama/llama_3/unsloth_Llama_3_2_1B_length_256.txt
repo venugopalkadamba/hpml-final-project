@@ -1,0 +1,127 @@
+python3 -m torch.distributed.run --nproc_per_node=4          llama3/LightSeq/lightseq/twp_v2_llama3.py         --model_name_or_path unsloth/Llama-3.2-1B         --data_path data_llama3.pkl         --fp16         --output_dir outputs         --num_train_epochs 3            --per_device_train_batch_size 1         --per_device_eval_batch_size 1          --gradient_accumulation_steps 1         --evaluation_strategy no         --save_strategy steps         --save_steps 1000          --save_total_limit 1         --learning_rate 2e-5         --weight_decay 0.          --warmup_ratio 0.03          --lr_scheduler_type "cosine"         --logging_steps 1          --fsdp "full_shard auto_wrap"         --fsdp_transformer_layer_cls_to_wrap 'LlamaDecoderLayer'         --tf32 False          --model_max_length 256          --gradient_checkpointing True          --lazy_preprocess True > unsloth_Llama_3_2_1B_length_256.txt
+
+Initializing Torch distributed.
+************ Finish sequence pralell group Initialization. ***********
+Loaded Config SuccessfullyLoaded Config SuccessfullyLoaded Config Successfully
+
+
+Loaded Config Successfully
+trainable params 1235814400
+trainable params 1235814400
+torch distributed is already initialized, skipping initialization ...
+trainable params 1235814400
+trainable params 1235814400
+Initializing global memoery buffer.
+Initializing global memoery buffer for backward.
+Cumulated time list [2.9207334518432617]
+Cumulated time list [2.9199907779693604]
+Cumulated time list [2.9200267791748047]
+Cumulated time list [2.91996693611145]
+Cumulated time list [2.9199907779693604, 3.0840413570404053]
+Cumulated time list [2.9207334518432617, 3.0841710567474365]
+Cumulated time list [2.9200267791748047, 3.0843489170074463]
+Cumulated time list [2.91996693611145, 3.0841047763824463]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236]Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428]
+
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303]
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303, 3.090224027633667]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715, 3.09055495262146]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707, 3.090341091156006]
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132, 3.0937230587005615]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715, 3.09055495262146, 3.0865066051483154]
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132, 3.0937230587005615, 3.083512544631958]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303, 3.090224027633667, 3.0870232582092285]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707, 3.090341091156006, 3.0868282318115234]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303, 3.090224027633667, 3.0870232582092285, 3.0835089683532715]
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132, 3.0937230587005615, 3.083512544631958, 3.0839171409606934]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715, 3.09055495262146, 3.0865066051483154, 3.0841052532196045]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707, 3.090341091156006, 3.0868282318115234, 3.0839624404907227]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715, 3.09055495262146, 3.0865066051483154, 3.0841052532196045, 3.097289562225342]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303, 3.090224027633667, 3.0870232582092285, 3.0835089683532715, 3.097813844680786]Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132, 3.0937230587005615, 3.083512544631958, 3.0839171409606934, 3.0973854064941406]
+
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707, 3.090341091156006, 3.0868282318115234, 3.0839624404907227, 3.098097324371338]
+Cumulated time list [2.9199907779693604, 3.0840413570404053, 3.0890095233917236, 3.0832173824310303, 3.090224027633667, 3.0870232582092285, 3.0835089683532715, 3.097813844680786, 3.082207202911377]
+Cumulated time list [2.9207334518432617, 3.0841710567474365, 3.0889391899108887, 3.0831427574157715, 3.09055495262146, 3.0865066051483154, 3.0841052532196045, 3.097289562225342, 3.082488775253296]
+Cumulated time list [2.91996693611145, 3.0841047763824463, 3.088714361190796, 3.083211660385132, 3.0937230587005615, 3.083512544631958, 3.0839171409606934, 3.0973854064941406, 3.0831856727600098]
+Cumulated time list [2.9200267791748047, 3.0843489170074463, 3.0886647701263428, 3.0833287239074707, 3.090341091156006, 3.0868282318115234, 3.0839624404907227, 3.098097324371338, 3.0842032432556152]
+Per GPU shape: torch.Size([1, 256]), 3068.559593624539 ms, 52.72700683030341 ms
+Per GPU shape: torch.Size([1, 256]), 3068.6590671539307 ms, 52.48405609729768 ms
+Per GPU shape: torch.Size([1, 256]), 3068.866835700141 ms, 52.80511468540454 ms
+Per GPU shape: torch.Size([1, 256]), 3068.635728624132 ms, 52.788646483518626 ms
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                     record_param_comms         1.11%     614.217ms         1.60%     882.009ms     136.958us       28.863s        35.10%       29.861s       4.637ms           0 b           0 b           0 b           0 b          6440  
+                       FullyShardedDataParallel.forward         0.82%     450.274ms        36.34%       20.036s      30.824ms       0.000us         0.00%       26.772s      41.188ms     842.03 Kb           0 b      12.46 Gb     -12.44 Gb           650  
+autograd::engine::evaluate_function: CheckpointFunct...         0.01%       5.257ms        37.94%       20.916s     130.722ms       0.000us         0.00%       24.843s     155.271ms           0 b           0 b       4.40 Gb    -465.02 Mb           160  
+        CheckpointFunctionEndWithFlashAttentionBackward         0.88%     486.076ms        37.93%       20.910s     130.689ms     185.139ms         0.23%       24.843s     155.271ms           0 b      -5.00 Kb       4.85 Gb      -2.76 Gb           160  
+                                 c10d::_allgather_base_         0.03%      16.626ms         1.26%     693.556ms     715.006us       0.000us         0.00%       21.588s      22.256ms           0 b           0 b           0 b           0 b           970  
+ncclDevKernel_AllGather_RING_LL(ncclDevComm*, unsign...         0.00%       0.000us         0.00%       0.000us       0.000us       21.121s        25.69%       21.121s      21.775ms           0 b           0 b           0 b           0 b           970  
+                                  nccl:_all_gather_base         0.00%       0.000us         0.00%       0.000us       0.000us       21.121s        25.69%       21.121s      21.775ms           0 b           0 b           0 b           0 b           970  
+                  FullyShardedDataParallel._pre_forward         0.93%     511.563ms        10.94%        6.030s       9.278ms       0.000us         0.00%       14.951s      23.001ms           0 b           0 b      77.41 Gb      77.29 Gb           650  
+                       FullyShardedDataParallel.forward         0.00%       0.000us         0.00%       0.000us       0.000us       10.317s        12.55%       10.317s      15.872ms           0 b           0 b           0 b           0 b           650  
+                                          model_forward         0.00%       2.527ms        22.41%       12.354s        1.235s       0.000us         0.00%       10.098s        1.010s      84.20 Kb    -757.83 Kb       6.34 Gb      -1.10 Gb            10  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 55.132s
+Self CUDA time total: 82.222s
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                     record_param_comms         0.93%     512.916ms         1.39%     766.901ms      99.340us       28.733s        35.05%       29.948s       3.879ms           0 b           0 b           0 b           0 b          7720  
+                       FullyShardedDataParallel.forward         0.84%     459.414ms        36.08%       19.837s      30.519ms       0.000us         0.00%       26.250s      40.385ms     842.03 Kb           0 b      12.46 Gb     -12.49 Gb           650  
+autograd::engine::evaluate_function: CheckpointFunct...         0.01%       5.254ms        38.04%       20.915s     130.721ms       0.000us         0.00%       24.666s     154.161ms           0 b           0 b       4.40 Gb    -465.02 Mb           160  
+        CheckpointFunctionEndWithFlashAttentionBackward         0.90%     492.413ms        38.04%       20.910s     130.689ms     172.672ms         0.21%       24.666s     154.161ms           0 b      -5.00 Kb       4.85 Gb      -2.76 Gb           160  
+                                 c10d::_allgather_base_         0.03%      16.524ms         0.99%     543.015ms     559.809us       0.000us         0.00%       21.482s      22.146ms           0 b           0 b           0 b           0 b           970  
+ncclDevKernel_AllGather_RING_LL(ncclDevComm*, unsign...         0.00%       0.000us         0.00%       0.000us       0.000us       20.997s        25.61%       20.997s      21.646ms           0 b           0 b           0 b           0 b           970  
+                                  nccl:_all_gather_base         0.00%       0.000us         0.00%       0.000us       0.000us       20.997s        25.61%       20.997s      21.646ms           0 b           0 b           0 b           0 b           970  
+                  FullyShardedDataParallel._pre_forward         0.94%     519.382ms        10.65%        5.855s       9.008ms       0.000us         0.00%       14.802s      22.772ms           0 b           0 b      77.41 Gb      77.41 Gb           650  
+                       FullyShardedDataParallel.forward         0.00%       0.000us         0.00%       0.000us       0.000us       10.294s        12.56%       10.294s      15.837ms           0 b           0 b           0 b           0 b           650  
+                                          model_forward         0.00%       2.572ms        22.19%       12.201s        1.220s       0.000us         0.00%        9.984s     998.390ms      84.20 Kb    -757.83 Kb       6.34 Gb      -1.10 Gb            10  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 54.976s
+Self CUDA time total: 81.977s
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                     record_param_comms         0.55%     299.639ms         0.99%     542.671ms      70.294us       28.274s        34.56%       29.250s       3.789ms           0 b           0 b           0 b           0 b          7720  
+                       FullyShardedDataParallel.forward         0.84%     459.680ms        35.42%       19.400s      29.846ms       0.000us         0.00%       25.150s      38.692ms     842.03 Kb          -8 b      12.46 Gb     -12.42 Gb           650  
+autograd::engine::evaluate_function: CheckpointFunct...         0.01%       5.791ms        38.20%       20.920s     130.752ms       0.000us         0.00%       24.880s     155.499ms           0 b           0 b       4.40 Gb    -465.02 Mb           160  
+        CheckpointFunctionEndWithFlashAttentionBackward         0.92%     502.130ms        38.19%       20.914s     130.714ms     181.166ms         0.22%       24.878s     155.489ms           0 b      -5.00 Kb       4.85 Gb      -3.54 Gb           160  
+                                 c10d::_allgather_base_         0.03%      16.502ms         0.63%     344.110ms     354.753us       0.000us         0.00%       20.883s      21.529ms           0 b           0 b           0 b           0 b           970  
+ncclDevKernel_AllGather_RING_LL(ncclDevComm*, unsign...         0.00%       0.000us         0.00%       0.000us       0.000us       20.535s        25.10%       20.535s      21.170ms           0 b           0 b           0 b           0 b           970  
+                                  nccl:_all_gather_base         0.00%       0.000us         0.00%       0.000us       0.000us       20.535s        25.10%       20.535s      21.170ms           0 b           0 b           0 b           0 b           970  
+                  FullyShardedDataParallel._pre_forward         0.97%     532.048ms        10.34%        5.661s       8.709ms       0.000us         0.00%       14.339s      22.059ms           0 b           0 b      77.41 Gb      77.41 Gb           650  
+                       FullyShardedDataParallel.forward         0.00%       0.000us         0.00%       0.000us       0.000us       10.331s        12.63%       10.331s      15.894ms           0 b           0 b           0 b           0 b           650  
+                                          model_forward         0.00%       2.670ms        21.92%       12.007s        1.201s       0.000us         0.00%        9.489s     948.944ms      84.20 Kb    -757.83 Kb       6.34 Gb      -1.10 Gb            10  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 54.767s
+Self CUDA time total: 81.809s
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                     record_param_comms         1.19%     657.819ms         1.66%     913.862ms     141.904us       28.191s        34.88%       28.978s       4.500ms           0 b           0 b           0 b           0 b          6440  
+                       FullyShardedDataParallel.forward         0.84%     463.457ms        35.40%       19.520s      30.031ms       0.000us         0.00%       25.041s      38.525ms     842.03 Kb          -8 b      12.46 Gb     -12.39 Gb           650  
+autograd::engine::evaluate_function: CheckpointFunct...         0.01%       5.223ms        37.94%       20.919s     130.744ms       0.000us         0.00%       24.707s     154.421ms           0 b           0 b       4.40 Gb    -465.02 Mb           160  
+        CheckpointFunctionEndWithFlashAttentionBackward         0.92%     508.917ms        37.93%       20.914s     130.711ms     151.962ms         0.19%       24.707s     154.421ms           0 b      -5.00 Kb       4.85 Gb      -3.55 Gb           160  
+                                 c10d::_allgather_base_         0.03%      17.199ms         1.28%     705.786ms     727.614us       0.000us         0.00%       20.846s      21.491ms           0 b           0 b           0 b           0 b           970  
+ncclDevKernel_AllGather_RING_LL(ncclDevComm*, unsign...         0.00%       0.000us         0.00%       0.000us       0.000us       20.448s        25.30%       20.448s      21.081ms           0 b           0 b           0 b           0 b           970  
+                                  nccl:_all_gather_base         0.00%       0.000us         0.00%       0.000us       0.000us       20.448s        25.30%       20.448s      21.081ms           0 b           0 b           0 b           0 b           970  
+                  FullyShardedDataParallel._pre_forward         0.96%     530.676ms        10.88%        6.000s       9.230ms       0.000us         0.00%       14.275s      21.961ms           0 b           0 b      77.41 Gb      77.29 Gb           650  
+                       FullyShardedDataParallel.forward         0.00%       0.000us         0.00%       0.000us       0.000us       10.300s        12.74%       10.300s      15.847ms           0 b           0 b           0 b           0 b           650  
+                                          model_forward         0.00%       2.530ms        22.43%       12.369s        1.237s       0.000us         0.00%        9.131s     913.120ms      84.20 Kb    -757.83 Kb       6.34 Gb      -1.10 Gb            10  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 55.138s
+Self CUDA time total: 80.820s
+
+{'Latency (seconds)': 467.57786100000004, 'Bandwidth (GiB per second)': 1.316792424834679}
+{'Latency (seconds)': 465.0242609999999, 'Bandwidth (GiB per second)': 1.3292761866340177}
+{'Latency (seconds)': 459.62880000000024, 'Bandwidth (GiB per second)': 1.3501464068390778}
+{'Latency (seconds)': 456.438986, 'Bandwidth (GiB per second)': 1.3675295928565774}
