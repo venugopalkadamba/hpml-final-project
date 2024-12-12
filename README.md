@@ -1,5 +1,4 @@
 <center><h1>Scaling FlashAttention: Multi-GPU Implementation and Comparative Analysis on Llama Models</h1></center>
-<hr>
 
 - Python Requirements
     - For Lllama2: ``` llama2/requirements.txt ```
