@@ -1,5 +1,22 @@
 <center><h1>Scaling FlashAttention: Multi-GPU Implementation and Comparative Analysis on Llama Models</h1></center>
 
+## Description of the Project
+This project investigates the scalability and efficiency of Distributed FlashAttention for LLaMA models in resource-constrained environments. FlashAttention, a memory-efficient attention mechanism, is implemented and benchmarked on a 4-GPU high-performance computing (HPC) cluster using LLaMA2 7B and extended to LLaMA3 1B. The primary focus is on profiling Distributed FlashAttention’s performance using metrics such as bandwidth, latency, and memory usage to evaluate its utility for long-context training of large language models (LLMs).
+
+## Project Milestones
+- **Implementation of Distributed FlashAttention for LLaMA2 7B**: ✅ Completed  
+- **Extension to LLaMA3 1B**: ✅ Completed  
+- **Profiling and Benchmarking Performance**: ✅ Completed  
+- **Identification of Scalability Patterns and Bottlenecks**: ✅ Completed  
+- **Development of Recommendations for Future Deployments**: ✅ Completed  
+
+## Repository and Code Structure
+- `data_llama` folder contains the data used for profiling
+- `llama2` folder contains the dist flash attention for llama2 7B model
+- `llama3` folder contains the dist flash attention for llama3 1B model
+- `data.py` is used for generating the sample data for profiling
+
+## Commands to Execute the Code
 - Python Requirements
     - For Lllama2: ``` llama2/requirements.txt ```
     - For Lllama3: ``` llama3/requirements.txt ```
@@ -62,3 +79,8 @@ python3 -m torch.distributed.run --nproc_per_node=4 \
     --gradient_checkpointing True  \
     --lazy_preprocess True 
 ```
+
+## Results and Observations
+<img src="assets/Latency_Throughput.png">
+<img src="assets/memory_plots.png">
+<img src="assets/performance_plots.png">
