@@ -84,3 +84,15 @@ python3 -m torch.distributed.run --nproc_per_node=4 \
 <img src="assets/Latency_Throughput.png">
 <img src="assets/memory_plots.png">
 <img src="assets/performance_plots.png">
+
+- **Bandwidth Utilization and Training Time**:  
+  - As shown in the **bandwidth_training_time** plot, there is a correlation between bandwidth utilization and training time. Efficient data transfer significantly reduces the overall training duration.  
+
+- **System Latency and Throughput**:  
+  - The **Latency_Throughput** plot demonstrates the trade-off between latency and throughput under varying context lengths. While smaller models achieve lower latency, larger models offer more stable throughput across all context windows.  
+
+- **Memory Consumption Patterns**:  
+  - The **memory_plots** visualization highlights memory usage across different configurations. Peak memory usage remains constant for each model variant, determined by model size rather than sequence length. A bell-curve pattern in self-memory usage suggests optimal utilization for larger context windows.  
+
+- **Overall System Performance**:  
+  - The **performance_plots** reveal that the time required for forward and backward passes, as well as communication, decreases with larger context lengths. This improvement is attributed to gains in block-wise computation patterns that process attention in tiles efficiently.  
